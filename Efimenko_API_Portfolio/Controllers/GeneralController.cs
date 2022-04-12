@@ -32,5 +32,13 @@ namespace Efimenko_API_Portfolio.Controllers
                     photo = p.ProfilePhoto
                 }).ToList()
             });
+
+        [Route("ShowAllArticles")]
+        [HttpPost]
+        public IActionResult ShowAllArticles()
+            => Ok(new { 
+                message = "All articles",
+                articles = ArticlesDatabase.Articles.ToList()
+            });
     }
 }
