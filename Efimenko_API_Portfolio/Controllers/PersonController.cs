@@ -13,7 +13,7 @@ namespace Efimenko_API_Portfolio.Controllers
     {
         PersonsContext PersonsDatabase;
         ArticlesContext ArticlesDatabase;
-        public PersonController(PersonsContext personsContext, ArticlesContext  articlesContext)
+        public PersonController(PersonsContext personsContext, ArticlesContext articlesContext)
         {
             PersonsDatabase = personsContext;
             ArticlesDatabase = articlesContext;
@@ -99,12 +99,33 @@ namespace Efimenko_API_Portfolio.Controllers
             var article = Article.Create(_uid, articleUpdateData);
             ArticlesDatabase.Articles.Add(article);
             ArticlesDatabase.SaveChanges();
-            return Ok(new { 
+            return Ok(new
+            {
                 message = "Article successfully added!",
                 articleData = article
             });
         }
+        [Route("GetArticlesForUser")]
+        [HttpPost]
+        [Authorize(Roles = "admin,user")]
+        public IActionResult GetArticlesForUser()
+        {
+            // проверить куки -> взять id
+            // проверить что пользователь с таким id есть
+            // показать статьи
 
+            if (!Request.Cookies.TryGetValue("ID", out string? uid))
+                return BadRequest(new { error = "Cookie not found error. Authorize first" });
 
+            var person = PersonsDatabase.Persons.Where(p => p.Id == Convert.ToInt32(uid)).FirstOrDefault();
+            if (person == null)
+                return BadRequest(new { error = $"Unknown error. Cannot find person with your cookie id: '{uid}'" });
+
+            return Ok(new
+            {
+                message = "Request succeed",
+                personArticles = ArticlesDatabase.Articles.Where(a => a.PersonId == Convert.ToInt32(uid)).ToList()
+            });
+        }
     }
 }
