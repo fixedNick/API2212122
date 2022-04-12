@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Efimenko_API_Portfolio", "Efimenko_API_Portfolio\Efimenko_API_Portfolio.csproj", "{A7218BBD-FAEB-4F84-9877-BD75869A0760}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A7218BBD-FAEB-4F84-9877-BD75869A0760}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7218BBD-FAEB-4F84-9877-BD75869A0760}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7218BBD-FAEB-4F84-9877-BD75869A0760}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7218BBD-FAEB-4F84-9877-BD75869A0760}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {09281A10-E2C2-4F93-863B-81BD37E86185}
+	EndGlobalSection
+EndGlobal
