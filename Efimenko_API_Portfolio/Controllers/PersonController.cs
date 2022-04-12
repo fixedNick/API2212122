@@ -12,9 +12,11 @@ namespace Efimenko_API_Portfolio.Controllers
     public class PersonController : ControllerBase
     {
         PersonsContext PersonsDatabase;
-        public PersonController(PersonsContext personsContext)
+        ArticlesContext ArticlesDatabase;
+        public PersonController(PersonsContext personsContext, ArticlesContext  articlesContext)
         {
             PersonsDatabase = personsContext;
+            ArticlesDatabase = articlesContext;
         }
 
         #region UpdatePersonalData: ChangePassword, UpdatePersonalData
@@ -72,6 +74,37 @@ namespace Efimenko_API_Portfolio.Controllers
             });
         }
         #endregion
+
+        //CreaateArticle, ShowAllArticles
+        [Route("CreateArticle")]
+        [HttpPost]
+        [Authorize(Roles = "admin, user")]
+        public IActionResult CreateArticle([FromBody] ArticleUpdate articleUpdateData)
+        {
+            // проверить куки
+            // получить пользователя
+
+            if (Request.Cookies.TryGetValue("ID", out string? uid) == false)
+                return BadRequest(new { error = "Cookie not found error. Authorize first" });
+
+            int _uid = Convert.ToInt32(uid);
+
+            var person = PersonsDatabase.Persons.Where(p => p.Id == _uid).FirstOrDefault();
+            if (person == null)
+                return BadRequest(new { error = $"Unknown error. Cannot find person with your cookie id: '{uid}'" });
+
+            if (articleUpdateData.Title == null || articleUpdateData.Content == null)
+                return BadRequest(new { error = "Title and Content fields required to be" });
+
+            var article = Article.Create(_uid, articleUpdateData);
+            ArticlesDatabase.Articles.Add(article);
+            ArticlesDatabase.SaveChanges();
+            return Ok(new { 
+                message = "Article successfully added!",
+                articleData = article
+            });
+        }
+
 
     }
 }

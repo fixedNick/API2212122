@@ -4,6 +4,7 @@ namespace Efimenko_API_Portfolio.Data
 {
     public class Utils
     {
+
         public static string GetCurrentDateAsString()
             => $"{DateTime.Now.Day}/{DateTime.Now.Month}/{DateTime.Now.Year}";
 

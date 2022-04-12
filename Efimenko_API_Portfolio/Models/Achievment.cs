@@ -4,6 +4,7 @@ namespace Efimenko_API_Portfolio.Models
 {
     public class Achievment
     {
+        public static List<Achievment> Achievments = new List<Achievment>();
         public int Id { get; set; }
         public string Name { get; set; }
         public string AwardDate { get; set; }

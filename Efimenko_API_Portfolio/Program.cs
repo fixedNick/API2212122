@@ -7,7 +7,6 @@ using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 builder.Services.AddDbContext<PersonsContext>(opts =>
 opts.UseSqlServer(builder.Configuration.GetConnectionString("PersonsContext")));
 
