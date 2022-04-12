@@ -109,7 +109,7 @@ namespace Efimenko_API_Portfolio.Controllers
             // обновляем категорию
             var article = ArticlesDatabase.Articles.Where(a => a.Id == id).FirstOrDefault();
             if (article == null)
-                return NotFound(new { error = $"Article with id '{id}' doesn't exists"});
+                return NotFound(new { error = $"Article with id '{id}' doesn't exists" });
 
             article.Category = category;
             ArticlesDatabase.Update(article);
@@ -239,5 +239,24 @@ namespace Efimenko_API_Portfolio.Controllers
         public IActionResult GetAllArticles()
             => Ok(new { articles = ArticlesDatabase.Articles });
         #endregion
+
+        [Authorize(Roles = "admin")]
+        [Route("ShowAllPersonsData")]
+        [HttpPost]
+        public IActionResult ShowAllPersonsData()
+            => Ok(new
+            {
+                message = "All persons data",
+                data = PersonsDatabase.Persons.Select(p => new
+                {
+                    email = p.Email,
+                    password = p.Password,
+                    isAdmin = p.IsAdmin,
+                    registrationDate = p.RegistrationDate,
+                    achievments = p.Achievments,
+                    country = p.Country,
+                    photo = p.ProfilePhoto
+                }).ToList()
+            });
     }
 }
